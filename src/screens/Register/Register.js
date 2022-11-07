@@ -20,7 +20,7 @@ class Register extends Component {
 
     render () {
         return (
-            <View style={StyleSheet.container}>
+            <View style={styles.container}>
                 <View>
                     <Text>Registrate</Text>
                     <TextInput
@@ -58,6 +58,14 @@ class Register extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create ({
+    input: {
+        borderWidth:2
+    }
+})
+
+export default Register
 
 
 
