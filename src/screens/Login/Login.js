@@ -10,8 +10,15 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            loggedIn: false
         }
+    }
+
+    componentDidMount(){
+        auth.onAuthStateChanged(user => {
+            if(user !== null){
+                this.props.navigation.navigate('TabNavigation')
+            }
+        })
     }
 
     login(email, password) {
