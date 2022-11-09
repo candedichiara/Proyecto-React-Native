@@ -1,6 +1,6 @@
 import {Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import React, {Component} from 'react'
-import {auth} from '../../firebase/config'
+import {auth, db} from '../../firebase/config'
 
 class Register extends Component {
     constructor(){
@@ -8,15 +8,48 @@ class Register extends Component {
         this.state={
             email:'',
             password:'',
+            userName:'',
             bio: '',
-            error:''
+            error:'',
+            photo: '',
+            showCamera: false,
         }
     }
 
-    register(email, password){
+    registerUser(email, password, userName, bio, photo){
+        //registrar en firebase y de ahi nos redirecciona al login
         auth.createUserWithEmailAndPassword(email, password)
-        .then (resp => this.props.navigation.navigate ('TabNavigation'))
-        .catch(err => this.setState({error: err.message}))
+        .then (resp => {
+            db.collection('users').add ({
+                owner: email,
+                userName: userName,
+                bio: bio,
+                photo: photo
+            })
+            .then(()=> {
+                this.setState ({
+                    email: '',
+                    password:'',
+                    userName: '',
+                    bio: '',
+                    error:'',
+                    showCamera: false 
+
+                })
+            this.props.navigation.navigate ('Login') 
+            // preguntar si tengo que poner tabNavigation o login
+            
+            
+        })
+        .catch (err => console.log(err))
+        })
+        
+    }
+    onImageUpload(url) {
+        this.setState ({
+            photo: url,
+            showCamera: false,
+        })
     }
 
     render () {
@@ -27,23 +60,43 @@ class Register extends Component {
                     
                     <TextInput
                     style = {styles.input}
-                    placeholder='Ingresa tu email'
-                    onChangeText={text => this.setState ({email: text})}
+                    placeholder='email'
+                    keyboardType='email-address'
+                    onChangeText={text => this.setState ({email: text, error:''})}
                     value={this.state.email}
                     />
                     <TextInput
                     style = {styles.input}
-                    placeholder='Ingresa tu contraseña'
-                    onChangeText={text => this.setState ({password: text})}
+                    placeholder='contraseña'
+                    keyboardType='default'
+                    onChangeText={text => this.setState ({password: text, error:''})}
                     value={this.state.password}
                     secureTextEntry={true}
                     />
                     <TextInput
                     style = {styles.input}
+                    placeholder='usuario'
+                    keyboardType='default'
+                    onChangeText={text => this.setState ({userName: text, error:''})}
+                    value={this.state.userName}
+                    />
+                    <TextInput
+                    style = {styles.input}
                     placeholder='Mini biografía'
-                    onChangeText={text => this.setState ({bio: text})}
+                    keyboardType='default'
+                    onChangeText={text => this.setState ({bio: text, error:''})}
                     value={this.state.bio}
                     />
+                    {
+                        this.state.showCamera ?
+                        <View style={styles.foto}>
+                            <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
+                        </View>
+                        :
+                        <TouchableOpacity onPress={() => this.setState({showCamera:true})}>
+                            <Text>Foto de perfil</Text>
+                        </TouchableOpacity>
+                    }
 
                     <View>
                         {
@@ -81,6 +134,10 @@ const styles = StyleSheet.create ({
         marginRight: 30,
         marginTop: 60,
 
+    },
+    foto: {
+        width: '100vw',
+        height:'100vh'
     },
     input: {
         borderWidth: 1,
