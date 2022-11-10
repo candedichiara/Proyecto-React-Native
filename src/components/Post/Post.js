@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
         justifyContent:'space-between',
-        borderWidth:5,
-        borderRadius:10
+        borderWidth:3.5,
+        borderRadius:10,
+        marginBottom:4,
+        marginTop:4,
     },
     texto:{
         fontWeight:550,
