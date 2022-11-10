@@ -102,7 +102,7 @@ class Register extends Component {
                         {
                             this.state.email.length > 0 && this.state.password.length > 0 && this.state.bio.length > 0? 
                             <TouchableOpacity onPress={() => this.register(this.state.email, this.state.password)} style={styles.boton}>
-                            <Text>Registra tu usuario</Text>
+                            <Text style={styles.texto}>Registra tu usuario</Text>
                             </TouchableOpacity>
                             : 'Complete todos los campos'
                         }
@@ -174,6 +174,9 @@ const styles = StyleSheet.create ({
 
         color: 'white'
 
+    },
+    texto: {
+        color: 'white'
     }
 })
 
