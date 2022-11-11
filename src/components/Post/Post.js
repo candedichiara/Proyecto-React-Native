@@ -47,7 +47,7 @@ class Post extends Component {
       <View style={styles.container}>
         <View>
             <Text style={styles.texto}>Descripcion:</Text>
-            <Text>{this.props.data.descripcion}</Text>
+            <Text>{this.props.data.description}</Text>
         </View>
         
         {
@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
         borderWidth:3.5,
         borderRadius:10,
         marginBottom:4,
-        marginTop:4,
+        marginTop:6,
+        marginLeft:8,
+        marginRight:8, 
     },
     texto:{
         fontWeight:550,
