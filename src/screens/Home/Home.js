@@ -1,7 +1,8 @@
 import { Text, View, FlatList } from 'react-native'
 import React, { Component } from 'react'
-import {db} from '../../firebase/config'
+import {db, auth} from '../../firebase/config'
 import Post from '../../components/Post/Post'
+import firebase from 'firebase'
 
 class Home extends Component {
     constructor(){

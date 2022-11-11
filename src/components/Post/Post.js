@@ -60,9 +60,12 @@ class Post extends Component {
                     <FontAwesome name='heart-o' color='red' size={32} />
                 </TouchableOpacity>
         }
-      </View>
+    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments')}>
+            <Text>Agregar comentario</Text>
+        </TouchableOpacity>
+    </View>
     )
-  }
+}
 }
 
 const styles = StyleSheet.create({
