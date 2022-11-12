@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
@@ -9,7 +9,10 @@ class Post extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            likeado: false
+            likeado: false,
+           // cantidadLikes: props.data.likes.length,
+            //cantidadComenatarios: props.data.comments.length
+        
         }
     }
 
@@ -60,12 +63,10 @@ class Post extends Component {
                             <FontAwesome name='heart-o' color='red' size={32} />
                         </TouchableOpacity>
                 }
-
-                <View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
                     <Text>Agregar comentario</Text>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
+              
                 
     </View>
 

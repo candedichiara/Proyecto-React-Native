@@ -8,7 +8,7 @@ class Comments extends Component {
   render() {
     return (
       <View>
-        <Text>Hola</Text>
+        <Text>Comments</Text>
       </View>
     )
   }
