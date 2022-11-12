@@ -31,19 +31,20 @@ class MainNavigation extends Component {
                     />
 
                     <Stack.Screen
-                        name='Comments'
-                        component={Comments}
-                        options={{
-                            headerShown: false
-                        }}
-                    />
-                    <Stack.Screen
                         name='TabNavigation'
                         component={TabNavigation}
                         options={{
                             headerShown: false
                         }}
 
+                    />
+
+                    <Stack.Screen
+                        name='Comments'
+                        component={Comments}
+                        options={{
+                            headerShown: false
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

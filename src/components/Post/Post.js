@@ -10,9 +10,18 @@ class Post extends Component {
         super(props)
         this.state = {
             likeado: false,
-           // cantidadLikes: props.data.likes.length,
+            cantidadLikes: props.data.likes.length,
             //cantidadComenatarios: props.data.comments.length
-        
+
+        }
+    }
+
+    componentDidMount(){
+        let like = this.props.data.likes.includes(auth.currentUser.email)
+        if(like){
+            this.setState({
+                likeado:true
+            })
         }
     }
 
@@ -25,7 +34,8 @@ class Post extends Component {
             })
             .then(resp => {
                 this.setState({
-                    likeado: true
+                    likeado: true,
+                    cantidadLikes: this.state.cantidadLikes + 1
                 })
             })
             .catch(err => console.log(err))
@@ -39,7 +49,8 @@ class Post extends Component {
             })
             .then(resp => {
                 this.setState({
-                    likeado: false
+                    likeado: false,
+                    cantidadLikes: this.state.cantidadLikes - 1
                 })
             })
             .catch(err => console.log(err))
@@ -53,6 +64,9 @@ class Post extends Component {
                     <Text>{this.props.data.description}</Text>
                 </View>
 
+                <View>
+
+                <Text>{this.state.cantidadLikes}</Text>
                 {
                     this.state.likeado ?
                         <TouchableOpacity onPress={() => this.deslikear()}>
@@ -63,12 +77,25 @@ class Post extends Component {
                             <FontAwesome name='heart-o' color='red' size={32} />
                         </TouchableOpacity>
                 }
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
-                    <Text>Agregar comentario</Text>
-                </TouchableOpacity>
-              
-                
-    </View>
+
+                </View>
+
+               
+
+                <View>
+
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
+                        <Text>Agregar comentario</Text>
+                    </TouchableOpacity>
+
+                </View>
+
+
+            </View>
+
+
+
+
 
         )
     }
