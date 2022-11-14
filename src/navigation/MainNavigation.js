@@ -44,7 +44,6 @@ class MainNavigation extends Component {
                         name='Comments'
                         component={Comments}
                         options={{
-                            headerShown: false
                         }}
                     />
                 </Stack.Navigator>
