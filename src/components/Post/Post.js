@@ -69,7 +69,7 @@ class Post extends Component {
                     source={{ uri: this.props.data.foto }}
                     resizeMode='cover'
                 />
-                <Text> {this.props.data.owner} </Text>
+                <Text style={styles.user}> {this.props.data.owner} </Text>
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
                     <Text>{this.props.data.description}</Text>
@@ -80,7 +80,7 @@ class Post extends Component {
                     <Text>{this.state.cantidadLikes}</Text>
                     {
                         this.state.likeado ?
-                            <TouchableOpacity onPress={() => this.deslikear()}>
+                            <TouchableOpacity style={styles.like} onPress={() => this.deslikear()}>
                                 <FontAwesome name='heart' color='red' size={32} />
                             </TouchableOpacity>
                             :
@@ -121,27 +121,45 @@ class Post extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
-        borderWidth: 3.5,
-        borderRadius: 10,
         marginBottom: 4,
-        marginTop: 6,
-        marginLeft: 8,
-        marginRight: 8,
+        marginTop: 10,
+        marginLeft: '20%',
+        marginRight: '20%',
+        alignItems: 'center',
+        backgroundColor: 'rgb(232,229,229)',
 
     },
     texto: {
         fontWeight: 550,
+        marginTop: 0,
+        fontSize:18,
+        color:'black', 
+        marginLeft:'0'   
+        
     },
     foto: {
         height: 400,
         width: 400,
         border: '2px solid #ddd',
-        borderRadius: 9,
+        borderRadius: 4,
         padding: 5,
         alignItems: 'center'
+    },
+    user:{
+        color:'black',
+        fontSize:20,    
+        //marginRight:'40%',
+        //width:"100%",
+        borderRadius:4,
+        
+
+    },
+    like:{
+        marginRight:'25%',
+        marginTop: 2,
     }
+
 })
 
 export default Post

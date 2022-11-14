@@ -11,7 +11,7 @@ class Profile extends Component {
             email: '',
             userName: '',
             miniBio: '',
-            photo: '',
+            foto: '',
             cantPost: '',
             posts: []
         }
@@ -68,24 +68,27 @@ class Profile extends Component {
                         <View>
                            { <Image
                                 style={styles.foto}
-                                source={this.state.user.data.photo}
+                                source={this.state.user.data.foto}
                                 resizeMode='cover'
                             /> }
-                            <Text style={styles.text}> {this.state.user.data.userName} </Text>
-                            <Text style={styles.text}> {this.state.user.data.bio} </Text>
+                            <View style={styles.containerInfo}>
+                                <Text style={styles.text}> {this.state.user.data.userName} </Text>
+                                <Text style={styles.text}> {this.state.user.data.bio} </Text>
+                            </View>
+                            
 
 
                         </View> 
                 }
 
-                {/* <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
+                <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
                 <FlatList
                     data={this.state.posts}
-                    keyExtractor={onePost => onePost.id.toString()}
-                    renderItem={({ item }) => <Post postData={item} navigation={this.props.navigation} />}
-            />*/}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => <Post navigation={this.props.navigation} id={item.id} data={item.data}/>}
+                />
                
-                <TouchableOpacity style={styles.text} onPress={()=> this.signOut()} >
+                <TouchableOpacity style={styles.boton} onPress={()=> this.signOut()} >
                 <Text>Log out</Text>
                 </TouchableOpacity>  
 
@@ -105,17 +108,23 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: 'rgb(232,229,229)',
-        flex: 1,
+        flex: 2,
+        alignItems: 'left',
+        marginLeft: 5
 
 
 
+    },
+    containerInfo: {
+        display: 'flex',
+        alignItems: 'center'
     },
 
     text: {
         fontFamily: 'Oswald, sans-serif',
         color: 'black',
         fontWeight: 'bold',
-        fontSize: 35,
+        fontSize: 30,
         textAlign: 'center',
 
     },
@@ -124,18 +133,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#c7f7f7',
         color: 'white',
         fontFamily: 'Raleway, sans-serif;',
-        fontSize: 18,
+        fontSize: 22,
         textAlign: 'center',
         fontWeight: 'bold',
+        marginTop: '6%',
+        marginBottom: '2%'
     },
 
     foto: {
         height: 400,
         width: 400,
         border: '2px solid #ddd',
-        borderRadius: 9,
+        borderRadius: '50%',
         padding: 5,
-        alignItems: 'center'
+        alignItems: 'center',
+        margin:'3%'
+    },
+    boton: {
+        backgroundColor: 'white',
+        color: 'white',
+        border: 'none',
+        padding: 5,
+        alignItems: 'center' 
     },
 
 

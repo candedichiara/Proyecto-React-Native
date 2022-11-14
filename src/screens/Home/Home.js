@@ -30,7 +30,7 @@ class Home extends Component {
     render() {
         return (
         <View style={styles.container}>
-            <Text>Home</Text>
+            <Text></Text>
             <FlatList
                 data={this.state.posteos}
                 keyExtractor={(item)=> item.id.toString()}
@@ -44,7 +44,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: 'rgb(232,229,229)',
+        backgroundColor: 'white',
     }
 })
 

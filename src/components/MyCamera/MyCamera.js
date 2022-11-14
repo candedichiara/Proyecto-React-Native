@@ -46,7 +46,7 @@ class MyCamera extends Component {
                     .then(() => {
                         ref.getDownloadURL()
                             .then((url)=>{
-                                this.props.onImageUpload(url)
+                                this.props.cuandoSubaLaFoto(url)
                             })
                     })
                 //getdownloadURL es un metodo asincronico
@@ -58,12 +58,12 @@ class MyCamera extends Component {
             .catch(err => console.log(err))
     }
 
-    /*cancelar() {
+    cancelar() {
         this.setState({
             urlTemporal: '',
             showCamera: true
         })
-    }*/
+    }
 
     render() {
         return (
@@ -96,7 +96,7 @@ class MyCamera extends Component {
                                 <TouchableOpacity style={styles.boton} onPress={() => this.guardarFoto(this.state.urlTemporal)}>
                                     <Text>Aceptar</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.boton}>
+                                <TouchableOpacity style={styles.boton} onPress={() => this.cancelar(this.state.urlTemporal)}>
                                     <Text>Rechazar</Text>
                                 </TouchableOpacity>
                                 
