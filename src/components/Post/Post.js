@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
         marginTop: 6,
         marginLeft: 8,
         marginRight: 8,
+        
     },
     texto: {
         fontWeight: 550,

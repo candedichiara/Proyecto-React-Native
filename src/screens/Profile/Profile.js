@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet, Image, FlatList } from "react-native"
+import { Text, TextInput, View, TouchableOpacity, StyleSheet, Image, FlatList } from "react-native"
 import React, { Component } from "react"
 import { db, auth } from '../../firebase/config'
 import Post from "../../components/Post/Post"
@@ -9,37 +9,44 @@ class Profile extends Component {
         this.state = {
             user: [],
             email: '',
+            userName: '',
             miniBio: '',
-            foto: '',
+            photo: '',
             cantPost: '',
             posts: []
         }
     }
 
     componentDidMount() {
+
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => {
-                let posts = []
+                let posts = [];
                 docs.forEach(doc => {
                     posts.push({
                         id: doc.id,
                         data: doc.data()
                     })
                 })
+                this.setState({
+                    posts: posts,
+                })
 
 
             }
         )
         db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
-            docs => {
-                let user = []
-                docs.forEach(doc => {
+            docs => { //todos los datos de la colección
+                let user;
+                docs.forEach(doc => { //por cada documento, quiero un doc y la función que ejecutaré por cada doc
                     user.push({
                         id: doc.id,
                         data: doc.data()
                     })
                     this.setState({
-                        user: user
+                        userName: user.userName,
+                        miniBio: user.miniBio,
+                        photo: user.photo
                     })
                 })
             }
@@ -53,22 +60,27 @@ class Profile extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Profile</Text>
-                {
-                    this.state.user.length == 0 ?
-                        <Text></Text> :
+            <View style={styles.container}>
+                
+
+                
+                       
                         <View>
-                            <Text style={styles.text}> {this.state.user[0].data.userName} </Text>
-                            <Text style={styles.text}> {this.state.user[0].data.owner} </Text>
-                            <Text style={styles.text}> {this.state.user[0].data.bio} </Text>
                             <Image
                                 style={styles.foto}
-                                source={this.state.user[0].data.foto}
+                                source={this.state.photo}
                                 resizeMode='cover'
                             />
+                            <Text style={styles.text}> {this.state.userName} </Text>
+                            <Text style={styles.text}> {this.state.owner} </Text>
+                            <Text style={styles.text}> {this.state.miniBio} </Text>
+
+
                         </View>
-                }
+                
+                <TouchableOpacity onPress={() => this.signOut()}>
+                    <Text>Log out</Text>
+                </TouchableOpacity>
 
                 <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
                 <FlatList
@@ -76,48 +88,54 @@ class Profile extends Component {
                     keyExtractor={onePost => onePost.id.toString()}
                     renderItem={({ item }) => <Post postData={item} navigation={this.props.navigation} />}
                 />
-                <TouchableOpacity onPress={() => this.signOut()}>
-                    <Text>Log out</Text>
-                </TouchableOpacity>
+
             </View>
         )
     }
 }
 
-const styles= StyleSheet.create ({
+const styles = StyleSheet.create({
 
 
 
-    scroll:{
+    scroll: {
         flex: 2
     },
+    container: {
+        backgroundColor: 'rgb(232,229,229)',
+        flex: 1,
+        
+        
+        
+    },
 
-    text:{
+    text: {
         fontFamily: 'Oswald, sans-serif',
-        color:'white',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 35,
-        textAlign:'center',
-        backgroundColor:'#926F5B',
+        textAlign: 'center',
+        
     },
-    
-    text2:{
-       backgroundColor:'#D3B9AA',
-       color: 'white',
+
+    text2: {
+        backgroundColor: '#c7f7f7',
+        color: 'white',
         fontFamily: 'Raleway, sans-serif;',
         fontSize: 18,
         textAlign: 'center',
-        fontWeight: 'bold',  
-        },
+        fontWeight: 'bold',
+    },
 
-    foto:{
-        height:400,
-        width:400,
+    foto: {
+        height: 400,
+        width: 400,
         border: '2px solid #ddd',
-        borderRadius:9 ,
+        borderRadius: 9,
         padding: 5,
-        alignItems:'center'    
-        },
+        alignItems: 'center'
+    },
+
 
 })
 

@@ -37,7 +37,7 @@ class Register extends Component {
                             showCamera: false
 
                         })
-                        this.props.navigation.navigate('Login')
+                        this.props.navigation.navigate('Home')
                         // preguntar si tengo que poner tabNavigation o login
 
 
@@ -88,7 +88,9 @@ class Register extends Component {
                         onChangeText={text => this.setState({ bio: text, error: '' })}
                         value={this.state.bio}
                     />
-                    {
+                   
+            
+                   {
                         this.state.showCamera ?
                             <View style={styles.foto}>
                                 <MyCamera onImageUpload={url => this.onImageUpload(url)} />
@@ -104,7 +106,7 @@ class Register extends Component {
                     <View>
                         {
                             this.state.email.length > 0 && this.state.password.length > 0 && this.state.bio.length > 0 ?
-                                <TouchableOpacity onPress={() => this.register(this.state.email, this.state.password)} style={styles.boton}>
+                                <TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.password)} style={styles.boton}>
                                     <Text style={styles.texto}>Registra tu usuario</Text>
                                 </TouchableOpacity>
                                 : 'Complete todos los campos'
@@ -131,7 +133,10 @@ class Register extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'rgb(232,229,229)',
-        flex: 1
+        flex: 1,
+        
+        
+        
     },
     container2: {
         marginLeft: 30,
@@ -150,6 +155,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         borderRadius: 4,
+
 
 
     },
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginRight: 250,
         borderRadius: 4,
-        color: 'white'
+        color: 'black'
     },
 
     ingresar: {

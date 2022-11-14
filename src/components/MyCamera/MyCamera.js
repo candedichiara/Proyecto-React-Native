@@ -1,15 +1,16 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, ReactFragment } from 'react'
 import { Camera } from 'expo-camera'
 import { storage } from '../../firebase/config'
 
 
 class MyCamera extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            showCamera: false,
-            urlTemporal: ''
+            showCamera: true,
+            urlTemporal: '',
+            permission: false
         }
         this.metodosDeCamera = ''
         //esto se rellena cuandp traiga el componente camara, cada vez que necesite usar un metodo de la camara voy a poner this.MetodosDeCamara
@@ -20,7 +21,7 @@ class MyCamera extends Component {
             // si este permiso es aceptado queremos modificar el estado
             .then(() => this.setState(
                 {
-                    showCamera: true
+                    permission: true
                 }
             ))
             .catch(err => console.log(err))
@@ -30,7 +31,7 @@ class MyCamera extends Component {
         this.metodosDeCamera.takePictureAsync()
             .then(photo => {
                 this.setState({
-                    urlTemporal: photo.uri,
+                    urlTemporal: photo.uri, //es una uri interna temporal de la foto
                     showCamera: false
                 })
             })
@@ -42,9 +43,9 @@ class MyCamera extends Component {
             .then(res => res.blob())
             //transforma eso que fue a buscar en el tipo de dato que necesitamos
             //las imagenes son un tipo de dato binario por eso ponemos res.blob
-            .then(imagenOk => {
+            .then(image => {
                 const refStorage = storage.ref(`photos/${Date.now()}.jpg`);
-                refStorage.put(imagenOk)
+                refStorage.put(image)
                     .then(() => {
                         refStorage.getDownloadURL()
                             .then((url)=>{
@@ -60,19 +61,19 @@ class MyCamera extends Component {
             .catch(err => console.log(err))
     }
 
-    cancelar() {
+    /*cancelar() {
         this.setState({
             urlTemporal: '',
             showCamera: true
         })
-    }
+    }*/
 
     render() {
         return (
             <View style={styles.cameraContainer}>
 
                 {
-                    this.state.showCamera ?
+                    this.state.showCamera  ?
                         <>
                             <Camera
                                 style={styles.camara}

@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'; 
 import Posts from '../screens/Posts/Posts'
 import Profile from '../screens/Profile/Profile';
+import Search from '../screens/Search/Search';
 
 const Tab = createBottomTabNavigator()
 
@@ -32,6 +33,9 @@ function TabNavigation() {
        <Tab.Screen name='Profile' component={Profile} options={{
           tabBarIcon: () =>  <FontAwesome name='user' color={'black'} size={32}/>
         }}/>
+        <Tab.Screen name='Search' component={Search} options={
+          {tabBarIcon: () => <FontAwesome name='search' color={'black'} size={32}/>}
+        } />
         
 
     </Tab.Navigator>
