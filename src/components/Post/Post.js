@@ -59,6 +59,7 @@ class Post extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text> {this.props.data.owner} </Text>
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
                     <Text>{this.props.data.description}</Text>

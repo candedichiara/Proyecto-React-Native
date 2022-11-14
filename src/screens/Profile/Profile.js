@@ -48,6 +48,7 @@ class Profile extends Component {
 
     signOut() {
         auth.signOut()
+        this.props.navigation.navigate('Login')
     }
 
     render() {
