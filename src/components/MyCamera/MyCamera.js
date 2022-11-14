@@ -46,7 +46,7 @@ class MyCamera extends Component {
                     .then(() => {
                         ref.getDownloadURL()
                             .then((url)=>{
-                                this.props.cuandoSubaLaFoto(url)
+                                this.props.onImageUpload(url)
                             })
                     })
                 //getdownloadURL es un metodo asincronico
