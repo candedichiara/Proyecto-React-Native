@@ -7,7 +7,9 @@ class Posts extends Component {
   constructor() {
     super()
     this.state = {
-      descripcion: '',
+      description: '',
+      owner: '',
+      createdAt: '',
       showCamera: true,
       photo: '',
     }
@@ -22,7 +24,7 @@ class Posts extends Component {
       comentarios: [],
       foto: this.state.photo
     })
-      .then(() => this.setState({ descripcion: '' }))
+      .then(() => this.props.navigation.navigate('Home'))
       .catch(err => console.log(err))
 
   }
@@ -43,15 +45,16 @@ class Posts extends Component {
             />
             :
             <>
+            <Text>Subir posteo</Text>
               <TextInput
                 placeholder=' Escribi tu descripcion'
-                onChangeText={text => this.setState({ descripcion: text })}
-                value={this.state.descripcion}
+                onChangeText={text => this.setState({ description: text })}
+                value={this.state.description}
                 keyboardType='default'
                 style={styles.input}
               />
-              <TouchableOpacity onPress={() => this.subirPost(this.state.descripcion)}>
-                <Text>Enviar</Text>
+              <TouchableOpacity onPress={() => this.subirPost(this.state.description)}>
+                <Text>Publicar</Text>
               </TouchableOpacity>
             </>
 

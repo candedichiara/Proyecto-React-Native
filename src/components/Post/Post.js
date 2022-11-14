@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, Image, Button } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
@@ -10,17 +10,17 @@ class Post extends Component {
         super(props)
         this.state = {
             likeado: false,
-            cantidadLikes: props.data.likes.length,
-            //cantidadComenatarios: props.data.comments.length
+            cantidadLikes: this.props.data.likes.length,
+            //cantidadComenatarios: this.props.data.comment.length,
 
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let like = this.props.data.likes.includes(auth.currentUser.email)
-        if(like){
+        if (like) {
             this.setState({
-                likeado:true
+                likeado: true
             })
         }
     }
@@ -56,9 +56,19 @@ class Post extends Component {
             .catch(err => console.log(err))
     }
 
+    deletePost() {
+        db.collection('posts')
+            .doc(this.props.id)
+            .delete()
+    }
     render() {
         return (
             <View style={styles.container}>
+                <Image
+                    style={styles.foto}
+                    source={{ uri: this.props.data.foto }}
+                    resizeMode='cover'
+                />
                 <Text> {this.props.data.owner} </Text>
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
@@ -67,30 +77,37 @@ class Post extends Component {
 
                 <View>
 
-                <Text>{this.state.cantidadLikes}</Text>
-                {
-                    this.state.likeado ?
-                        <TouchableOpacity onPress={() => this.deslikear()}>
-                            <FontAwesome name='heart' color='red' size={32} />
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity onPress={() => this.likear()}>
-                            <FontAwesome name='heart-o' color='red' size={32} />
-                        </TouchableOpacity>
-                }
+                    <Text>{this.state.cantidadLikes}</Text>
+                    {
+                        this.state.likeado ?
+                            <TouchableOpacity onPress={() => this.deslikear()}>
+                                <FontAwesome name='heart' color='red' size={32} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={() => this.likear()}>
+                                <FontAwesome name='heart-o' color='red' size={32} />
+                            </TouchableOpacity>
+                    }
 
                 </View>
 
-               
+
 
                 <View>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', {id: this.props.id})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
                         <Text>Agregar comentario</Text>
                     </TouchableOpacity>
 
                 </View>
-
+                {
+                    this.props.data.owner == auth.currentUser.email ?
+                        
+                        <TouchableOpacity style={styles.boton} onPress={() => this.deletePost()} >
+                            <Text>Borrar </Text>
+                        </TouchableOpacity> :
+                        <Text></Text>
+                }
 
             </View>
 
@@ -112,10 +129,18 @@ const styles = StyleSheet.create({
         marginTop: 6,
         marginLeft: 8,
         marginRight: 8,
-        
+
     },
     texto: {
         fontWeight: 550,
+    },
+    foto: {
+        height: 400,
+        width: 400,
+        border: '2px solid #ddd',
+        borderRadius: 9,
+        padding: 5,
+        alignItems: 'center'
     }
 })
 

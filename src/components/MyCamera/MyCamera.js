@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { Component, ReactFragment } from 'react'
+import React, { Component } from 'react'
 import { Camera } from 'expo-camera'
 import { storage } from '../../firebase/config'
 
@@ -8,11 +8,10 @@ class MyCamera extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCamera: true,
+            showCamera: false,
             urlTemporal: '',
-            permission: false
         }
-        this.metodosDeCamera = ''
+        this.metodosDeCamera = null
         //esto se rellena cuandp traiga el componente camara, cada vez que necesite usar un metodo de la camara voy a poner this.MetodosDeCamara
     }
     componentDidMount() {
@@ -21,7 +20,7 @@ class MyCamera extends Component {
             // si este permiso es aceptado queremos modificar el estado
             .then(() => this.setState(
                 {
-                    permission: true
+                   showCamera: true
                 }
             ))
             .catch(err => console.log(err))
@@ -29,12 +28,10 @@ class MyCamera extends Component {
 
     sacarFoto() {
         this.metodosDeCamera.takePictureAsync()
-            .then(photo => {
-                this.setState({
-                    urlTemporal: photo.uri, //es una uri interna temporal de la foto
-                    showCamera: false
-                })
-            })
+           .then(photo => this.setState({
+                urlTemporal: photo.uri,
+                showCamera: false
+           }))
             .catch(err => console.log(err))
     }
 
@@ -43,11 +40,11 @@ class MyCamera extends Component {
             .then(res => res.blob())
             //transforma eso que fue a buscar en el tipo de dato que necesitamos
             //las imagenes son un tipo de dato binario por eso ponemos res.blob
-            .then(image => {
-                const refStorage = storage.ref(`photos/${Date.now()}.jpg`);
-                refStorage.put(image)
+            .then(photoOk => {
+                const ref = storage.ref(`photos/${Date.now()}.jpg`);
+                ref.put(photoOk)
                     .then(() => {
-                        refStorage.getDownloadURL()
+                        ref.getDownloadURL()
                             .then((url)=>{
                                 this.props.onImageUpload(url)
                             })
@@ -89,7 +86,7 @@ class MyCamera extends Component {
                                 <Text>Tomar foto</Text>
                             </TouchableOpacity>
                         </>
-                        : this.state.showCamera === false && this.urlTemporal !== '' ?
+                        : this.state.showCamera === false && this.state.urlTemporal !== '' ?
                             <>
                                 <Image
                                     style={styles.fotoLista}
@@ -99,7 +96,7 @@ class MyCamera extends Component {
                                 <TouchableOpacity style={styles.boton} onPress={() => this.guardarFoto(this.state.urlTemporal)}>
                                     <Text>Aceptar</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.boton} onPress={() => this.cancelar()}>
+                                <TouchableOpacity style={styles.boton}>
                                     <Text>Rechazar</Text>
                                 </TouchableOpacity>
                                 

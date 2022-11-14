@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import {db, auth} from '../../firebase/config';
-import {SearchBar} from 'react-native';
+import firebase from 'firebase';
 
 class Search extends Component {
     constructor(props) {
         super (props)
         this.state= {
             users: [],
-            input: ''
+            usersFiltrados: [],
+            search: false
         }
     }
 

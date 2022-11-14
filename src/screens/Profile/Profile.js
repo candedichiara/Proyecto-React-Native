@@ -7,7 +7,7 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: [],
+            user: '',
             email: '',
             userName: '',
             miniBio: '',
@@ -37,17 +37,17 @@ class Profile extends Component {
         )
         db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => { //todos los datos de la colección
-                let user;
+                let user = {}
                 docs.forEach(doc => { //por cada documento, quiero un doc y la función que ejecutaré por cada doc
-                    user.push({
+                    user = {
                         id: doc.id,
                         data: doc.data()
-                    })
-                    this.setState({
-                        userName: user.userName,
-                        miniBio: user.miniBio,
-                        photo: user.photo
-                    })
+                    }
+
+                })
+                console.log(user);
+                this.setState({
+                    user: user
                 })
             }
         )
@@ -60,34 +60,36 @@ class Profile extends Component {
 
     render() {
         return (
+
             <View style={styles.container}>
-                
-
-                
-                       
+                {
+                    this.state.user.length == 0 ?
+                    <Text> </Text> :
                         <View>
-                            <Image
+                           { <Image
                                 style={styles.foto}
-                                source={this.state.photo}
+                                source={this.state.user.data.photo}
                                 resizeMode='cover'
-                            />
-                            <Text style={styles.text}> {this.state.userName} </Text>
-                            <Text style={styles.text}> {this.state.owner} </Text>
-                            <Text style={styles.text}> {this.state.miniBio} </Text>
+                            /> }
+                            <Text style={styles.text}> {this.state.user.data.userName} </Text>
+                            <Text style={styles.text}> {this.state.user.data.bio} </Text>
 
 
-                        </View>
-                
-                <TouchableOpacity onPress={() => this.signOut()}>
-                    <Text>Log out</Text>
-                </TouchableOpacity>
+                        </View> 
+                }
 
-                <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
+                {/* <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
                 <FlatList
                     data={this.state.posts}
                     keyExtractor={onePost => onePost.id.toString()}
                     renderItem={({ item }) => <Post postData={item} navigation={this.props.navigation} />}
-                />
+            />*/}
+               
+                <TouchableOpacity style={styles.text} onPress={()=> this.signOut()} >
+                <Text>Log out</Text>
+                </TouchableOpacity>  
+
+                
 
             </View>
         )
@@ -104,9 +106,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'rgb(232,229,229)',
         flex: 1,
-        
-        
-        
+
+
+
     },
 
     text: {
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 35,
         textAlign: 'center',
-        
+
     },
 
     text2: {

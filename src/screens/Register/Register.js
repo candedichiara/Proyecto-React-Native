@@ -17,33 +17,19 @@ class Register extends Component {
         }
     }
 
-    registerUser(email, password, userName, bio, photo) {
+    registerUser(email, password) {
         //registrar en firebase y de ahi nos redirecciona al login
         auth.createUserWithEmailAndPassword(email, password)
-            .then(resp => {
-                db.collection('users').add({
-                    owner: email,
-                    userName: userName,
-                    bio: bio,
-                    photo: photo
-                })
-                    .then(() => {
-                        this.setState({
-                            email: '',
-                            password: '',
-                            userName: '',
-                            bio: '',
-                            error: '',
-                            showCamera: false
+            .then(() => {
+                db.collection('users').add ({
+                    owner: auth.currentUser.email,
+                    userName: this.state.userName,
+                    bio: this.state.bio,
+                }).then(() => this.props.navigation.navigate('Home'))
+            })     
 
-                        })
-                        this.props.navigation.navigate('Home')
-                        // preguntar si tengo que poner tabNavigation o login
-
-
-                    })
-                    .catch(err => console.log(err))
-            })
+            .catch (err => this.setState({error: err.message}))
+          
 
     }
     onImageUpload(url) {
@@ -88,9 +74,9 @@ class Register extends Component {
                         onChangeText={text => this.setState({ bio: text, error: '' })}
                         value={this.state.bio}
                     />
-                   
-            
-                   {
+
+
+                    {
                         this.state.showCamera ?
                             <View style={styles.foto}>
                                 <MyCamera onImageUpload={url => this.onImageUpload(url)} />
@@ -100,7 +86,6 @@ class Register extends Component {
                                 <Text>Foto de perfil</Text>
                             </TouchableOpacity>
                     }
-
 
 
                     <View>
@@ -134,9 +119,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'rgb(232,229,229)',
         flex: 1,
-        
-        
-        
+
+
+
     },
     container2: {
         marginLeft: 30,

@@ -1,12 +1,14 @@
 import { Text, View, TouchableOpacity, TextInput, StyleSheet, FlatList} from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
+import firebase from 'firebase'
+
 
 class Comments extends Component {
     constructor(props){
         super(props)
         this.state = {
-          id: props.route.params.id,
+          id: this.props.route.params.id,
           arrComments: [],
           data: {},
           comentario: ''
