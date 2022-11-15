@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 4,
         marginTop: 10,
-        marginLeft: '20%',
-        marginRight: '20%',
+        marginLeft: '16%',
+        marginRight: '16%',
         alignItems: 'center',
         backgroundColor: 'rgb(232,229,229)',
 
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
         
     },
     foto: {
-        height: 400,
-        width: 400,
+        height: 220,
+        width: 220,
         border: '2px solid #ddd',
         borderRadius: 4,
         padding: 5,
