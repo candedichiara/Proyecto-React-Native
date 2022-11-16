@@ -69,7 +69,10 @@ class Post extends Component {
                     source={{ uri: this.props.data.foto }}
                     resizeMode='cover'
                 />
-                <Text style={styles.user}> {this.props.data.owner} </Text>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('OtroPerfil', { email: this.props.data.owner }) }>
+                    <Text style={styles.user}> {this.props.data.owner} </Text>
+                </TouchableOpacity>
+                
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
                     <Text>{this.props.data.description}</Text>
@@ -158,6 +161,13 @@ const styles = StyleSheet.create({
     like:{
         marginRight:'25%',
         marginTop: 2,
+    },
+    boton: {
+        backgroundColor: 'rgba(238,239,236)',
+        color: 'white',
+        border: 'none',
+        padding: 5,
+        alignItems: 'center' 
     }
 
 })

@@ -25,7 +25,8 @@ class Register extends Component {
                     owner: auth.currentUser.email,
                     userName: this.state.userName,
                     bio: this.state.bio,
-                }).then(() => this.props.navigation.navigate('Home'))
+                    
+                }).then(() => this.props.navigation.navigate('Login'))
             })     
 
             .catch (err => this.setState({error: err.message}))
@@ -91,7 +92,7 @@ class Register extends Component {
                     <View>
                         {
                             this.state.email.length > 0 && this.state.password.length > 0 && this.state.bio.length > 0 ?
-                                <TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.password)} style={styles.boton}>
+                                <TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.password, this.state.userName, this.state.photo, this.state.bio)} style={styles.boton}>
                                     <Text style={styles.texto}>Registra tu usuario</Text>
                                 </TouchableOpacity>
                                 : 'Complete todos los campos'
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
         color: 'white'
     }
 })
-
 export default Register
 
 

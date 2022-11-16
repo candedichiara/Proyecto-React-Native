@@ -58,28 +58,41 @@ class Profile extends Component {
         this.props.navigation.navigate('Login')
     }
 
+    deleteAccount () {
+        db.collection('users').doc (this.state.user.id).delete()
+        .then(() => {
+            console.log('entre')
+            auth.currentUser.delete()
+        })
+        .then(() => {
+            this.props.navigation.navigate('Register')
+        })
+        .catch((err) => 'el error es' + err)
+    }
+
     render() {
+        console.log(this.state.user)
         return (
 
             <View style={styles.container}>
-                {
+               {/*  {
                     this.state.user.length == 0 ?
                     <Text> </Text> :
                         <View>
-                           { <Image
+                          { <Image
                                 style={styles.foto}
-                                source={this.state.user.data.foto}
+                                source={this.state.user[0].data.photo}
                                 resizeMode='cover'
-                            /> }
+                          /> } x
                             <View style={styles.containerInfo}>
-                                <Text style={styles.text}> {this.state.user.data.userName} </Text>
-                                <Text style={styles.text}> {this.state.user.data.bio} </Text>
+                                <Text style={styles.text}> {this.state.user[0].data.userName} </Text>
+                                <Text style={styles.text}> {this.state.user[0].data.bio} </Text>
                             </View>
                             
 
 
                         </View> 
-                }
+                }  */}
 
                 <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
                 <FlatList
@@ -90,6 +103,9 @@ class Profile extends Component {
                
                 <TouchableOpacity style={styles.boton} onPress={()=> this.signOut()} >
                 <Text>Log out</Text>
+                </TouchableOpacity>  
+                <TouchableOpacity style={styles.boton} onPress={()=> this.deleteAccount()} >
+                <Text>Delete account</Text>
                 </TouchableOpacity>  
 
                 
@@ -159,5 +175,6 @@ const styles = StyleSheet.create({
 
 
 })
+
 
 export default Profile
