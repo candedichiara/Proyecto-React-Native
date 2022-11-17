@@ -75,24 +75,27 @@ class Profile extends Component {
         return (
 
             <View style={styles.container}>
-               {/*  {
+                 {
                     this.state.user.length == 0 ?
                     <Text> </Text> :
-                        <View>
+                        <View style={styles.containerProfile}>
+                            <View>
+                                <Text style={styles.text}> {this.state.user.data.userName} </Text>
+                            </View>
                           { <Image
                                 style={styles.foto}
-                                source={this.state.user[0].data.photo}
+                                source={this.state.user.data.photo}
                                 resizeMode='cover'
                           /> } x
                             <View style={styles.containerInfo}>
-                                <Text style={styles.text}> {this.state.user[0].data.userName} </Text>
-                                <Text style={styles.text}> {this.state.user[0].data.bio} </Text>
+                               
+                                <Text style={styles.text}> {this.state.user.data.bio} </Text>
                             </View>
                             
 
 
                         </View> 
-                }  */}
+                }  
 
                 <Text style={styles.text2}> Lista de sus {this.state.posts.length} posteos  </Text>
                 <FlatList
@@ -136,6 +139,9 @@ const styles = StyleSheet.create({
 
 
     },
+    containerProfile: {
+        flexDirection: 'column'
+    },
     containerInfo: {
         display: 'flex',
         alignItems: 'center'
@@ -143,10 +149,11 @@ const styles = StyleSheet.create({
 
     text: {
         fontFamily: 'Oswald, sans-serif',
-        color: 'black',
+        color: 'white',
         fontWeight: 'bold',
         fontSize: 30,
-        textAlign: 'center',
+        textAlign: 'right',     
+        
 
     },
 
@@ -162,8 +169,8 @@ const styles = StyleSheet.create({
     },
 
     foto: {
-        height: 400,
-        width: 400,
+        height: 200,
+        width: 200,
         border: '2px solid #ddd',
         borderRadius: '50%',
         padding: 5,

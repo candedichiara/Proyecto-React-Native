@@ -9,6 +9,8 @@ class Search extends Component {
         this.state = {
             users: [],
             result: [],
+            backup: [],
+            input:'',
             search: false
 
         }
@@ -25,7 +27,8 @@ class Search extends Component {
                     })
                 })
                 this.setState({
-                    users: user
+                    users: user,
+                    backup: user
                 })
                 console.log(this.state)
             }
@@ -39,7 +42,7 @@ class Search extends Component {
         console.log(this.state.result);
 
       let arrayFiltrado = this.state.users.filter(user => {
-        if ( user.data.userName.toLowerCase().includes(text.toLowerCase)){
+        if ( user.data.userName.toLowerCase().includes(text.toLowerCase())){
             return user
         }
        
@@ -47,9 +50,10 @@ class Search extends Component {
       )
         this.setState({
             result: arrayFiltrado,
-            search: true
+            search: true,
+            input: text
           
-        })
+        }, () => console.log(this.state.result))
     }
 
     render() {
@@ -61,14 +65,14 @@ class Search extends Component {
                     style={styles.boton}
                     keyboardType='default'
                     onChangeText={text => this.searchUser(text)}
-                    value={this.state.search}
+                    value={this.state.input}
                 />
 
                 {
                     this.state.result.length == 0 && this.state.search == true ?
                         <Text>Usuario inexistente</Text> :
                         <View>
-                             <FlatList
+                            <FlatList
                             data={this.state.result}
                             keyExtractor={item => item.id.toString()}
                             renderItem={({ item }) =>
