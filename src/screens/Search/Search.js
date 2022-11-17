@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { db, auth } from '../../firebase/config';
+import { db} from '../../firebase/config';
 
 
 class Search extends Component {
@@ -54,7 +54,7 @@ class Search extends Component {
                 <TextInput
                     style={styles.boton}
                     keyboardType='default'
-                    onChangeText={text => this.buscar(text)}
+                    onChangeText={text => this.searchUser(text)}
                     value={this.state.search}
                 />
 

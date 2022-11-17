@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {db} from '../../firebase/config'
 import Post from '../../components/Post/Post'
 
-class OtroPerfil extends Component {
+class otroPerfil extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -55,7 +55,7 @@ class OtroPerfil extends Component {
             <View style={StyleSheet.container}>
                 <Image
                     style={StyleSheet.foto}
-                    source={this.state.user[0].data.photo}
+                    source={this.state.user[0].photo}
                 />
                  <Text style={styles.text}>{this.state.owner}</Text>
                 <Text style={styles.text} >{this.state.userName}</Text>
@@ -78,4 +78,4 @@ class OtroPerfil extends Component {
     }
 }
 
-export default OtroPerfil;
+export default otroPerfil;

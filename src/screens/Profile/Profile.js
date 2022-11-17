@@ -103,7 +103,12 @@ class Profile extends Component {
                
                 <TouchableOpacity style={styles.boton} onPress={()=> this.signOut()} >
                 <Text>Log out</Text>
-                </TouchableOpacity>  
+                </TouchableOpacity> 
+
+                <TouchableOpacity style={styles.boton} onPress={() => this.props.navigation.navigate('editProfile',)}>   
+                    <Text>Editar perfil</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity style={styles.boton} onPress={()=> this.deleteAccount()} >
                 <Text>Delete account</Text>
                 </TouchableOpacity>  

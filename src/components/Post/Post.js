@@ -69,7 +69,7 @@ class Post extends Component {
                     source={{ uri: this.props.data.foto }}
                     resizeMode='cover'
                 />
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('OtroPerfil', { email: this.props.data.owner }) }>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('otroPerfil', { email: this.props.data.owner }) }>
                     <Text style={styles.user}> {this.props.data.owner} </Text>
                 </TouchableOpacity>
                 
