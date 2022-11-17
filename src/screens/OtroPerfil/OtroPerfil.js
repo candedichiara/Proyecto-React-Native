@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {db} from '../../firebase/config'
 import Post from '../../components/Post/Post'
 
-class otroPerfil extends Component {
+class OtroPerfil extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -78,4 +78,4 @@ class otroPerfil extends Component {
     }
 }
 
-export default otroPerfil;
+export default OtroPerfil;

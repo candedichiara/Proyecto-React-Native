@@ -5,8 +5,8 @@ import Login from '../screens/Login/Login'
 import Register from '../screens/Register/Register'
 import TabNavigation from './TabNavigation'
 import Comments from '../screens/Comments/Comments'
-import otroPerfil from '../screens/OtroPerfil/OtroPerfil'
-import editProfile from '../screens/editProfile/editProfile'
+import OtroPerfil from '../screens/OtroPerfil/OtroPerfil'
+import EditProfile from '../screens/editProfile/editProfile'
 
 
 
@@ -51,15 +51,15 @@ class MainNavigation extends Component {
                     />
 
                     <Stack.Screen
-                        name='otroPerfil'
-                        component={otroPerfil}
+                        name='OtroPerfil'
+                        component={OtroPerfil}
                         options={{
                         }}
                     />
 
                     <Stack.Screen
-                        name='editProfile'
-                        component={editProfile}
+                        name='EditProfile'
+                        component={EditProfile}
                         options={{
                         }}
                     />

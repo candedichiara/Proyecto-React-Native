@@ -48,7 +48,7 @@ class Profile extends Component {
                 console.log(user);
                 this.setState({
                     user: user
-                })
+                }, () => console.log(this.state.user))
             }
         )
     }
@@ -105,7 +105,7 @@ class Profile extends Component {
                 <Text>Log out</Text>
                 </TouchableOpacity> 
 
-                <TouchableOpacity style={styles.boton} onPress={() => this.props.navigation.navigate('editProfile',)}>   
+                <TouchableOpacity style={styles.boton} onPress={() => this.props.navigation.navigate('EditProfile', {id:this.state.user.id})}>   
                     <Text>Editar perfil</Text>
                 </TouchableOpacity>
 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         flex: 2
     },
     container: {
-        backgroundColor: 'rgb(232,229,229)',
+        backgroundColor: '#1f2124',
         flex: 2,
         alignItems: 'left',
         marginLeft: 5

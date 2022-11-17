@@ -69,18 +69,18 @@ class Post extends Component {
                     source={{ uri: this.props.data.foto }}
                     resizeMode='cover'
                 />
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('otroPerfil', { email: this.props.data.owner }) }>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('OtroPerfil', { email: this.props.data.owner }) }>
                     <Text style={styles.user}> {this.props.data.owner} </Text>
                 </TouchableOpacity>
                 
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
-                    <Text>{this.props.data.description}</Text>
+                    <Text style={styles.texto2}>{this.props.data.description}</Text>
                 </View>
 
                 <View>
 
-                    <Text>{this.state.cantidadLikes}</Text>
+                    <Text style={styles.texto2}>{this.state.cantidadLikes}</Text>
                     {
                         this.state.likeado ?
                             <TouchableOpacity style={styles.like} onPress={() => this.deslikear()}>
@@ -99,7 +99,7 @@ class Post extends Component {
                 <View>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
-                        <Text>Agregar comentario</Text>
+                        <Text style={styles.texto}>Agregar comentario</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -107,7 +107,7 @@ class Post extends Component {
                     this.props.data.owner == auth.currentUser.email ?
                         
                         <TouchableOpacity style={styles.boton} onPress={() => this.deletePost()} >
-                            <Text>Borrar </Text>
+                            <Text style={styles.texto}>Borrar </Text>
                         </TouchableOpacity> :
                         <Text></Text>
                 }
@@ -130,14 +130,24 @@ const styles = StyleSheet.create({
         marginLeft: '16%',
         marginRight: '16%',
         alignItems: 'center',
-        backgroundColor: 'rgb(232,229,229)',
+        backgroundColor: '#1f2124',
+        border: '2px solid #ddd',
+        borderRadius: 4,
 
     },
     texto: {
         fontWeight: 550,
         marginTop: 0,
         fontSize:18,
-        color:'black', 
+        color:'white', 
+        marginLeft:'0'   
+        
+    },
+    texto2: {
+       textAlign:'center',
+        marginTop: 0,
+        fontSize:18,
+        color:'white', 
         marginLeft:'0'   
         
     },
@@ -147,10 +157,11 @@ const styles = StyleSheet.create({
         border: '2px solid #ddd',
         borderRadius: 4,
         padding: 5,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop:'6%'
     },
     user:{
-        color:'black',
+        color:'white',
         fontSize:20,    
         //marginRight:'40%',
         //width:"100%",

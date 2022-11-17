@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { db } from '../../firebase/config'
+import { db, auth} from '../../firebase/config'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-class editProfile extends Component {
-    constructor(props) {
-        super(props)
+class EditProfile extends Component {
+    constructor() {
+        super()
         this.state = {
-            email: '',
+            password: '',
             userName: '',
             miniBio: '',
         }
@@ -14,16 +14,21 @@ class editProfile extends Component {
 
 
     editarPerfil() {
+
         db.collection('users')
-            .doc(this.state.id)
+            .doc(this.props.route.params.id)
             .update({
-                email: this.state.email,
                 userName: this.state.userName,
                 miniBio: this.state.miniBio,
             })
             .then(() => {
                 this.props.navigation.navigate('Profile');
             })
+
+        auth.currentUser.updatePassword(
+            this.state.password
+        ).then ( () => {})
+        .catch (error => console.log(error))
 
     }
 
@@ -33,13 +38,7 @@ class editProfile extends Component {
             <View style={styles.container}>
                 <Text>Edita tus datos</Text>
                 <View style={styles.box}>
-                    <TextInput
-                        placeholder='email'
-                        keyboardType='email-address'
-                        onChangeText={text => this.setState({ email: text })}
-                        value={this.state.email}
-                        style={styles.input}
-                    />
+
 
                     <TextInput
                         placeholder='username'
@@ -55,6 +54,16 @@ class editProfile extends Component {
                         value={this.state.miniBio}
                         style={styles.input}
                     />
+
+                    <TextInput
+                        placeholder='password'
+                        keyboardType='default'
+                        secureTextEntry={true}
+                        onChangeText={text => this.setState({ password: text })}
+                        value={this.state.password}
+                        style={styles.input}
+                    />
+
 
                     <TouchableOpacity onPress={() => this.editarPerfil()}>
                         <Text style={styles.button}>Editar</Text>
@@ -103,4 +112,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default editProfile;
+export default EditProfile;

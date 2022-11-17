@@ -38,9 +38,15 @@ class Search extends Component {
         console.log(this.state.users);
         console.log(this.state.result);
 
-        //preguntar si es upper case o lower case
+      let arrayFiltrado = this.state.users.filter(user => {
+        if ( user.data.userName.toLowerCase().includes(text.toLowerCase)){
+            return user
+        }
+       
+}
+      )
         this.setState({
-            result: this.state.users.filter(users => users.data.userName.toLowerCase().includes(text.toLowerCase)),
+            result: arrayFiltrado,
             search: true
           
         })

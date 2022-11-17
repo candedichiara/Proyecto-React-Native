@@ -25,6 +25,7 @@ class Register extends Component {
                     owner: auth.currentUser.email,
                     userName: this.state.userName,
                     bio: this.state.bio,
+                    photo: this.state.photo
                     
                 }).then(() => this.props.navigation.navigate('Login'))
             })     
