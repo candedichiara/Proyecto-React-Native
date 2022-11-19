@@ -10,7 +10,7 @@ class Register extends Component {
             email: '',
             password: '',
             userName: '',
-            bio: '',
+            miniBio: '',
             error: '',
             photo: '',
             showCamera: false,
@@ -24,7 +24,7 @@ class Register extends Component {
                 db.collection('users').add ({
                     owner: auth.currentUser.email,
                     userName: this.state.userName,
-                    bio: this.state.bio,
+                    miniBio: this.state.miniBio,
                     photo: this.state.photo
                     
                 }).then(() => this.props.navigation.navigate('Login'))
@@ -73,8 +73,8 @@ class Register extends Component {
                         style={styles.input}
                         placeholder='Mini biografía'
                         keyboardType='default'
-                        onChangeText={text => this.setState({ bio: text, error: '' })}
-                        value={this.state.bio}
+                        onChangeText={text => this.setState({ miniBio: text, error: '' })}
+                        value={this.state.miniBio}
                     />
 
 
@@ -92,8 +92,8 @@ class Register extends Component {
 
                     <View>
                         {
-                            this.state.email.length > 0 && this.state.password.length > 0 && this.state.bio.length > 0 ?
-                                <TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.password, this.state.userName, this.state.photo, this.state.bio)} style={styles.boton}>
+                            this.state.email.length > 0 && this.state.password.length > 0 && this.state.miniBio.length > 0 ?
+                                <TouchableOpacity onPress={() => this.registerUser(this.state.email, this.state.password, this.state.userName, this.state.photo, this.state.miniBio)} style={styles.boton}>
                                     <Text style={styles.texto}>Registra tu usuario</Text>
                                 </TouchableOpacity>
                                 : 'Complete todos los campos'

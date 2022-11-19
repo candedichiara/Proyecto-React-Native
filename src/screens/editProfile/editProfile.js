@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-import { db, auth} from '../../firebase/config'
+import { db, auth } from '../../firebase/config'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import firebase from 'firebase';
 
 class EditProfile extends Component {
     constructor() {
         super()
         this.state = {
             password: '',
+            newPassword: '',
             userName: '',
             miniBio: '',
+            error: '',
+            message:''
         }
+    }
+
+    reauthenticate = (password) => {
+        const user = auth.currentUser;
+        const cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
+        return user.reauthenticateWithCredential(cred);
+    }
+
+    changePassword = () => {
+        this.reauthenticate(this.state.password)
+            .then(() => {
+                auth.currentUser.updatePassword(this.state.newPassword)
+                    .then(() => {
+                        this.setState({ message: "Password changed" })
+                    })
+                    .catch((e) => { console.log(e); });
+            })
+            .catch((e) => { console.log(e) });
     }
 
 
@@ -27,8 +49,8 @@ class EditProfile extends Component {
 
         auth.currentUser.updatePassword(
             this.state.password
-        ).then ( () => {})
-        .catch (error => console.log(error))
+        ).then(() => { })
+            .catch(error => console.log(error))
 
     }
 
@@ -38,7 +60,28 @@ class EditProfile extends Component {
             <View style={styles.container}>
                 <Text>Edita tus datos</Text>
                 <View style={styles.box}>
+                    <Text style={styles.alert}>{this.state.error}</Text>
 
+                    <TextInput
+                        placeholder="Password Actual"
+                        secureTextEntry={true}
+                        onChangeText={text => { this.setState({ password: text }) }}
+                        value={this.state.password}
+                        style={styles.input}
+                    />
+
+                    <TextInput
+                        placeholder="New password"
+                        secureTextEntry={true}
+                        onChangeText={text => { this.setState({ newPassword: text }) }}
+                        value={this.state.newPassword}
+                        style={styles.input}
+                    />
+
+                    <TouchableOpacity onPress={() => this.changePassword()}>
+                        <Text style={styles.button}>Change password</Text>
+                        <Text>{this.state.message}</Text>
+                    </TouchableOpacity>
 
                     <TextInput
                         placeholder='username'
@@ -55,14 +98,7 @@ class EditProfile extends Component {
                         style={styles.input}
                     />
 
-                    <TextInput
-                        placeholder='password'
-                        keyboardType='default'
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        style={styles.input}
-                    />
+
 
 
                     <TouchableOpacity onPress={() => this.editarPerfil()}>
@@ -104,7 +140,7 @@ const styles = StyleSheet.create({
         margin: '8%'
     },
     alert: {
-        color: 'white'
+        color: 'black'
     },
     button: {
         backgroundColor: 'white',

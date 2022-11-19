@@ -89,7 +89,7 @@ class Profile extends Component {
                           /> } x
                             <View style={styles.containerInfo}>
                                
-                                <Text style={styles.text}> {this.state.user.data.bio} </Text>
+                                <Text style={styles.text}> {this.state.user.data.miniBio} </Text>
                             </View>
                             
 
