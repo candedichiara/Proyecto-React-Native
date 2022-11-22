@@ -11,7 +11,7 @@ class Post extends Component {
         this.state = {
             likeado: false,
             cantidadLikes: this.props.data.likes.length,
-            //cantidadComenatarios: this.props.data.comment.length,
+            cantidadComentarios: this.props.data.comentarios.length,
 
         }
     }
@@ -97,6 +97,8 @@ class Post extends Component {
 
 
                 <View>
+
+                    <Text style={styles.texto2}>Comentarios: {this.state.cantidadComentarios}</Text>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
                         <Text style={styles.texto}>Agregar comentario</Text>

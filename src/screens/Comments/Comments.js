@@ -1,36 +1,34 @@
-import { Text, View, TouchableOpacity, TextInput, StyleSheet, FlatList} from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, StyleSheet, FlatList } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from '../../firebase/config'
+import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
 
 
 class Comments extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-          id: this.props.route.params.id,
-          arrComments: [],
-          data: {},
-          comentario: ''
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      id: props.route.params.id,
+      arrComments: [],
+      data: {},
+      comentario: ''
     }
+  }
 
-    componentDidMount(){
-      db
+  componentDidMount() {
+    db
       .collection('posts')
       .doc(this.state.id)
-      .onSnapshot(doc=> {
+      .onSnapshot(doc => {
         this.setState({
           data: doc.data(),
           arrComments: doc.data().comentarios
         })
       })
-    }
-//firebase.firestore.FieldValue.arrayRemove() metodos que nos permiten actualizar arrays de firebase
-//firebase.firestore.FieldValue.arrayRemove()
+  }
 
-    sendComment(comentario){
-      db
+  sendComment(comentario) {
+    db
       .collection('posts')
       .doc(this.state.id)
       .update({
@@ -38,10 +36,18 @@ class Comments extends Component {
           owner: auth.currentUser.email,
           createdAt: Date.now(),
           comment: comentario
-        
+
         })
       })
-    }
+
+      .catch(err => console.log(err))
+
+    this.setState({
+      comentario: ''
+
+    })
+
+  }
 
   render() {
     console.log(this.props)
@@ -49,27 +55,34 @@ class Comments extends Component {
       <View style={styles.container}>
         <Text style={styles.texto}>Comentarios del posteo</Text>
         {
-          this.state.comentario == undefined?
-          <Text></Text>:
-          this.state.comentario.length == 0 ?
-          <Text style={styles.texto2}>No hay comentarios, se el primero en comentar</Text>:
-        
-        <FlatList
-        data={this.state.arrComments}
-        keyExtractor={item=> item.createdAt.toString()}
-        renderItem={({item})=> <Text style={styles.textComm}>{item.owner} comento:{item.comment}</Text>}  //falta poner usuario, fecha, etc
-        />}
+          this.state.arrComments.length > 0 ?
+            <FlatList
+              data={this.state.arrComments.sort((actual, vecino)=> actual.createdAt - vecino.createdAt).reverse()}
+              keyExtractor={item => item.createdAt.toString()}
+              renderItem={({ item }) => <Text style={styles.textComm}>{item.owner} comento: {item.comment}</Text>}
+              
+            />
+            :
+            <Text style={styles.texto2}>No hay comentarios, se el primero en comentar</Text>
+        }
         <View>
           <TextInput
-          placeholder='Escribi tu comentario...'
-          style={styles.input}
-          keyboardType='default'
-          onChangeText={text=> this.setState({comentario:text})}
-          value={this.state.comentario}
+            placeholder='Escribi tu comentario...'
+            style={styles.input}
+            keyboardType='default'
+            onChangeText={text => this.setState({ comentario: text })}
+            value={this.state.comentario}
           />
-          <TouchableOpacity onPress={()=> this.sendComment(this.state.comentario)}>
-            <Text  style={styles.texto}>Enviar</Text>
-          </TouchableOpacity>
+
+          {
+            this.state.comentario.length > 0 ?
+              <TouchableOpacity onPress={() => this.sendComment(this.state.comentario)}>
+                <Text style={styles.texto2}>Comentar</Text>
+              </TouchableOpacity>
+              :
+              ""
+          }
+
         </View>
       </View>
     )
@@ -77,24 +90,29 @@ class Comments extends Component {
 }
 
 const styles = StyleSheet.create({
-  input:{
+  input: {
     height: 32,
     borderWidth: 1,
-    color:'white',
-    borderColor:'white'
+    color: 'white',
+    borderColor: 'white',
+    marginTop: 20
   },
   container: {
     backgroundColor: '#1f2124',
-    flex:1
-    
+    flex: 1
+
   },
-  texto:{
-    color:'white'
-  }, 
+  texto: {
+    color: 'white',
+    fontSize: 22,
+  },
   texto2: {
-    color:'white'
+    color: 'white'
+  },
+  textComm:{
+    color:'white',
   }
 })
 
 
-export default  Comments
+export default Comments
