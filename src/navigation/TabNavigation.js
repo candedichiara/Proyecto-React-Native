@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-import Home from '../screens/Home/Home'
 import { FontAwesome } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'; 
+import Home from '../screens/Home/Home'
 import Posts from '../screens/Posts/Posts'
 import Profile from '../screens/Profile/Profile';
 import Search from '../screens/Search/Search';
@@ -31,11 +31,13 @@ function TabNavigation() {
 
 
        <Tab.Screen name='Profile' component={Profile} options={{
-          tabBarIcon: () =>  <FontAwesome name='user' color={'black'} size={32}/>
+          tabBarIcon: () =>  <FontAwesome name='user' color={'black'} size={32}/>,
+          headerShown: false
         }}/>
-        <Tab.Screen name='Search' component={Search} options={
-          {tabBarIcon: () => <FontAwesome name='search' color={'black'} size={32}/>}
-        } />
+        <Tab.Screen name='Search' component={Search} options={{
+          tabBarIcon: () => <FontAwesome name='search' color={'black'} size={32}/>,
+          headerShown: false
+        }} />
         
 
     </Tab.Navigator>

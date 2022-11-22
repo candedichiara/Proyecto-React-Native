@@ -45,7 +45,7 @@ class Posts extends Component {
             />
             :
             <>
-            <Text>Subir posteo</Text>
+            <Text style={styles.text}>Subir posteo</Text>
               <TextInput
                 placeholder=' Escribi tu descripcion'
                 onChangeText={text => this.setState({ description: text })}
@@ -54,7 +54,7 @@ class Posts extends Component {
                 style={styles.input}
               />
               <TouchableOpacity onPress={() => this.subirPost(this.state.description)}>
-                <Text>Publicar</Text>
+                <Text style={styles.text}>Publicar</Text>
               </TouchableOpacity>
             </>
 
@@ -70,14 +70,19 @@ class Posts extends Component {
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1 
+    flex: 1 ,
+    backgroundColor: '#1f2124'
   },
 
   input: {
 
     marginTop: 10,
     height: 45,
-    borderWidth: 1
+    borderWidth: 1,
+    color:'white'
+  },
+  text: {
+    color:'white'
   }
 })
 

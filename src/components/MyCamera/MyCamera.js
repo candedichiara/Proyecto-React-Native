@@ -73,7 +73,7 @@ class MyCamera extends Component {
                     this.state.showCamera  ?
                         <>
                             <Camera
-                                style={styles.camara}
+                                style={styles.cameraContainer}
                                 type={Camera.Constants.Type.back}
                                 ref={metodos => this.metodosDeCamera = metodos}
                             // la camara sabe sacar fotos, este componente sabe sacar una foto. (eso es un metodo= take picture)
@@ -82,8 +82,8 @@ class MyCamera extends Component {
                             // que use su propia forma de sacar las fotos y la saque
                             // no vamos a escribir take picture
                             />
-                            <TouchableOpacity style={styles.botonCamara} onPress={() => this.sacarFoto()}>
-                                <Text>Tomar foto</Text>
+                            <TouchableOpacity style={styles.boton} onPress={() => this.sacarFoto()}>
+                                <Text style={styles.sacar}>Tomar foto</Text>
                             </TouchableOpacity>
                         </>
                         : this.state.showCamera === false && this.state.urlTemporal !== '' ?
@@ -94,10 +94,10 @@ class MyCamera extends Component {
                                     resizeMode='cover'
                                 />
                                 <TouchableOpacity style={styles.boton} onPress={() => this.guardarFoto(this.state.urlTemporal)}>
-                                    <Text>Aceptar</Text>
+                                    <Text style={styles.text}>Aceptar</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.boton} onPress={() => this.cancelar(this.state.urlTemporal)}>
-                                    <Text>Rechazar</Text>
+                                    <Text style={styles.text}>Rechazar</Text>
                                 </TouchableOpacity>
                                 
                                 
@@ -113,14 +113,43 @@ class MyCamera extends Component {
 
 const styles = StyleSheet.create({
     cameraContainer: {
-        flex: 1
-    },
-    camara: {
-        height: 300,
+        height:'50vh',
+        width:'100vw',
+        position:'absolute'
     },
     fotoLista: {
-        height: 300,
+        height: '45vh',
+    },
+    text: {
+        height: '5vh',
+        padding: 5,
+        marginTop: 20,
+        backgroundColor: '#c7f7f7',
+        textAlign: 'center',
+        fontFamily: 'Raleway, sans-serif;',
+        fontSize:20,
+        fontWeight: 'bold',
+        color:'white'
+    },
+    boton: {
+        height: '5vh',
+        padding: 5,
+        marginTop: 10,
+    },
+    sacar: {
+        backgroundColor: '#c7f7f7',
+        marginTop: 10,
+        textAlign: 'center',
+        fontFamily: 'Raleway, sans-serif;',
+        fontSize:20,
+        fontWeight: 'bold',
+        color: 'white'
     }
+    /*camara: {
+        height: 300,
+    },*/
+
+   
 })
 
 export default MyCamera

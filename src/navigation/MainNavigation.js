@@ -47,6 +47,7 @@ class MainNavigation extends Component {
                         name='Comments'
                         component={Comments}
                         options={{
+                            
                         }}
                     />
 

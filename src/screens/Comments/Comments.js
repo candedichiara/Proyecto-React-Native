@@ -46,13 +46,19 @@ class Comments extends Component {
   render() {
     console.log(this.props)
     return (
-      <View>
-        <Text>Comments</Text>
+      <View style={styles.container}>
+        <Text style={styles.texto}>Comentarios del posteo</Text>
+        {
+          this.state.comentario == undefined?
+          <Text></Text>:
+          this.state.comentario.length == 0 ?
+          <Text style={styles.texto2}>No hay comentarios, se el primero en comentar</Text>:
+        
         <FlatList
         data={this.state.arrComments}
         keyExtractor={item=> item.createdAt.toString()}
-        renderItem={({item})=> <Text>{item.comment}</Text>}  //falta poner usuario, fecha, etc
-        />
+        renderItem={({item})=> <Text style={styles.textComm}>{item.owner} comento:{item.comment}</Text>}  //falta poner usuario, fecha, etc
+        />}
         <View>
           <TextInput
           placeholder='Escribi tu comentario...'
@@ -62,7 +68,7 @@ class Comments extends Component {
           value={this.state.comentario}
           />
           <TouchableOpacity onPress={()=> this.sendComment(this.state.comentario)}>
-            <Text>Enviar</Text>
+            <Text  style={styles.texto}>Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -73,7 +79,20 @@ class Comments extends Component {
 const styles = StyleSheet.create({
   input:{
     height: 32,
-    borderWidth: 1
+    borderWidth: 1,
+    color:'white',
+    borderColor:'white'
+  },
+  container: {
+    backgroundColor: '#1f2124',
+    flex:1
+    
+  },
+  texto:{
+    color:'white'
+  }, 
+  texto2: {
+    color:'white'
   }
 })
 

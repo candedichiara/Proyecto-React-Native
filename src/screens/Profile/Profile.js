@@ -84,7 +84,7 @@ class Profile extends Component {
                             </View>
                           { <Image
                                 style={styles.foto}
-                                source={this.state.user.data.photo}
+                                source={{uri: this.state.user.data.photo}}
                                 resizeMode='cover'
                           /> } x
                             <View style={styles.containerInfo}>
@@ -151,15 +151,15 @@ const styles = StyleSheet.create({
         fontFamily: 'Oswald, sans-serif',
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 30,
-        textAlign: 'right',     
-        
+        fontSize: 24,
+        textAlign: 'center',     
+
 
     },
 
     text2: {
         backgroundColor: '#c7f7f7',
-        color: 'white',
+        color: '#1f2124',
         fontFamily: 'Raleway, sans-serif;',
         fontSize: 22,
         textAlign: 'center',
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     },
 
     foto: {
-        height: 200,
-        width: 200,
+        height: 120,
+        width: 120,
         border: '2px solid #ddd',
         borderRadius: '50%',
         padding: 5,
