@@ -33,7 +33,7 @@ class OtroPerfil extends Component {
                     idUser: user,
                     userName: user[0].data.userName,
                     miniBio: user[0].data.miniBio,
-                    email: user[0].data.email,
+                    email: user[0].data.owner,
                     photo: user[0].data.photo
                 }, () => console.log(this.state))
             })
@@ -63,6 +63,11 @@ class OtroPerfil extends Component {
                             <View>
                                 <Text style={styles.text}> {this.state.userName} </Text>
                             </View>
+
+                            <View>
+                                <Text style={styles.text}> mail: {this.state.email} </Text>
+                            </View>
+                           
                           { <Image
                                 style={styles.foto}
                                 source={this.state.photo}
@@ -72,6 +77,8 @@ class OtroPerfil extends Component {
                                
                                 <Text style={styles.text}> {this.state.miniBio} </Text>
                             </View>
+
+                           
                             
 
 

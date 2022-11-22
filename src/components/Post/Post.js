@@ -69,10 +69,10 @@ class Post extends Component {
                     source={{ uri: this.props.data.foto }}
                     resizeMode='cover'
                 />
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('OtroPerfil', { email: this.props.data.owner }) }>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('OtroPerfil', { email: this.props.data.owner })}>
                     <Text style={styles.user}> {this.props.data.owner} </Text>
                 </TouchableOpacity>
-                
+
                 <View>
                     <Text style={styles.texto}>Descripcion:</Text>
                     <Text style={styles.texto2}>{this.props.data.description}</Text>
@@ -98,7 +98,9 @@ class Post extends Component {
 
                 <View>
 
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{ id: this.props.id })}>
                     <Text style={styles.texto2}>Comentarios: {this.state.cantidadComentarios}</Text>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
                         <Text style={styles.texto}>Agregar comentario</Text>
@@ -107,7 +109,7 @@ class Post extends Component {
                 </View>
                 {
                     this.props.data.owner == auth.currentUser.email ?
-                        
+
                         <TouchableOpacity style={styles.boton} onPress={() => this.deletePost()} >
                             <Text style={styles.texto}>Borrar </Text>
                         </TouchableOpacity> :
@@ -140,18 +142,18 @@ const styles = StyleSheet.create({
     texto: {
         fontWeight: 550,
         marginTop: 0,
-        fontSize:18,
-        color:'white', 
-        marginLeft:'0'   
-        
+        fontSize: 18,
+        color: 'white',
+        marginLeft: '0'
+
     },
     texto2: {
-       textAlign:'center',
+        textAlign: 'center',
         marginTop: 0,
-        fontSize:18,
-        color:'white', 
-        marginLeft:'0'   
-        
+        fontSize: 18,
+        color: 'white',
+        marginLeft: '0'
+
     },
     foto: {
         height: 220,
@@ -160,19 +162,19 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 5,
         alignItems: 'center',
-        marginTop:'6%'
+        marginTop: '6%'
     },
-    user:{
-        color:'white',
-        fontSize:20,    
+    user: {
+        color: 'white',
+        fontSize: 20,
         //marginRight:'40%',
         //width:"100%",
-        borderRadius:4,
-        
+        borderRadius: 4,
+
 
     },
-    like:{
-        marginRight:'25%',
+    like: {
+        marginRight: '25%',
         marginTop: 2,
     },
     boton: {
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
         color: 'white',
         border: 'none',
         padding: 5,
-        alignItems: 'center' 
+        alignItems: 'center'
     }
 
 })
