@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#1f2124',
         height: '100%'
     },
     box: {

@@ -36,9 +36,9 @@ class Profile extends Component {
             }
         )
         db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
-            docs => { //todos los datos de la colección
+            docs => { 
                 let user = {}
-                docs.forEach(doc => { //por cada documento, quiero un doc y la función que ejecutaré por cada doc
+                docs.forEach(doc => { 
                     user = {
                         id: doc.id,
                         data: doc.data()

@@ -18,7 +18,7 @@ class Register extends Component {
     }
 
     registerUser(email, password) {
-        //registrar en firebase y de ahi nos redirecciona al login
+        
         auth.createUserWithEmailAndPassword(email, password)
             .then(() => {
                 db.collection('users').add ({
