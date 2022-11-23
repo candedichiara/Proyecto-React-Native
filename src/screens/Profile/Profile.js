@@ -151,9 +151,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Oswald, sans-serif',
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 24,
-        textAlign: 'center',     
-
+        fontSize: 20,
+        textAlign: 'left',     
+        marginTop:'2%'
 
     },
 

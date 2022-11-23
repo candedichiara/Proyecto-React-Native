@@ -58,7 +58,7 @@ class EditProfile extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Edita tus datos</Text>
+                <Text style={styles.text}>Edita tus datos</Text>
                 <View style={styles.box}>
                     <Text style={styles.alert}>{this.state.error}</Text>
 
@@ -120,8 +120,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
+<<<<<<< HEAD
         backgroundColor: '#1f2124',
         height: '100%'
+=======
+        backgroundColor: 'white',
+        height: '100%',
+        backgroundColor: '#1f2124'
+>>>>>>> ab3d9228c4f2c4a59220f5754ee0dbae36b7749d
     },
     box: {
         backgroundColor: '#c7f7f7',
@@ -145,6 +151,13 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'white',
         borderRadius: '5%'
+    },
+    text: {
+        fontFamily: 'Oswald, sans-serif',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 24,
+        textAlign: 'center',   
     }
 })
 
