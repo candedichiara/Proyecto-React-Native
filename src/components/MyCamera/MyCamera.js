@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway, sans-serif;',
         fontSize:20,
         fontWeight: 'bold',
-        color:'white'
+        color:'black'
     },
     boton: {
         height: '5vh',
